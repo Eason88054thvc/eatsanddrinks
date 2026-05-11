@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美食決策器 2.0</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f8f9fa; }
+        .container { text-align: center; background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 85%; max-width: 400px; }
+        #result-box { background: #f1f3f5; border-radius: 15px; padding: 20px; margin-bottom: 25px; min-height: 120px; display: flex; flex-direction: column; justify-content: center; border: 2px solid #e9ecef; }
+        #type-label { font-size: 0.9rem; color: #666; margin-bottom: 8px; font-weight: bold; }
+        #result { font-size: 1.8rem; font-weight: 800; color: #212529; line-height: 1.4; }
+        .btn-group { display: flex; flex-direction: column; gap: 12px; }
+        button { border: none; border-radius: 12px; padding: 16px; font-size: 1.1rem; font-weight: bold; color: white; cursor: pointer; transition: 0.2s; }
+        button:active { transform: scale(0.95); opacity: 0.9; }
+        .btn-drink { background: #20c997; }
+        .btn-lunch { background: #339af0; }
+        .btn-mix { background: #ff922b; } /* 亮橘色代表驚喜組合 */
+        .highlight { color: #ff922b; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="result-box">
+        <div id="type-label">今天吃什麼組合？</div>
+        <div id="result">尚未抽取</div>
+    </div>
+
+    <div class="btn-group">
+        <button class="btn-drink" onclick="pickDrink()">🥤 只抽飲料</button>
+        <button class="btn-lunch" onclick="pickLunch()">🍱 只抽午餐</button>
+        <button class="btn-mix" onclick="pickCombo()">🎲 隨機組合 (飯+喝)</button>
+    </div>
+</div>
+
+<script>
+    const drinkList = ["得正", "茶的摩手", "tea top", "鮮茶道", "大苑子", "茶湯會", "先喝道", "麻古茶坊", "五桐號"];
+
+    const lunchList = ["麥當勞", "健康餐盒", "伽味屋", "鑫品味", "八方雲集", "大鼎", "好點水餃", "阿傑炒飯", "漢堡王", "悟饕"];
+    // 取得隨機項目的共用函式
+    function getRandom(list) {
+        return list[Math.floor(Math.random() * list.length)];
+    }
+
+    // 1. 只抽飲料
+    function pickDrink() {
+        document.getElementById('type-label').innerText = "今日精選飲料：";
+        document.getElementById('result').innerHTML = getRandom(drinkList);
+    }
+
+    // 2. 只抽午餐
+    function pickLunch() {
+        document.getElementById('type-label').innerText = "今日推薦午餐：";
+        document.getElementById('result').innerHTML = getRandom(lunchList);
+    }
+
+    // 3. 隨機組合 (關鍵功能！)
+    function pickCombo() {
+        const food = getRandom(lunchList);
+        const drink = getRandom(drinkList);
+        
+        document.getElementById('type-label').innerText = "幫你配好了！完美套餐：";
+        // 使用 <br> 換行，讓結果更清楚
+        document.getElementById('result').innerHTML = 
+            food + " <span style='font-size: 1.2rem; color: #adb5bd;'>配</span><br>" + drink;
+    }
+</script>
+
+</body>
+</html> 
+   
